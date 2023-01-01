@@ -8,16 +8,16 @@ INSERT INTO products (
 
 -- name: GetProduct :one
 SELECT * FROM products
-WHERE name = $1 LIMIT 1;
+WHERE id = $1 LIMIT 1;
 
 -- name: GetProducts :many
 SELECT * FROM products;
 
 -- name: UpdateProduct :one
 UPDATE products
-SET name = $1, price = $2
-WHERE name = $1 RETURNING *;
+SET name = $2, price = $3
+WHERE id = $1 RETURNING *;
 
 -- name: DeleteProduct :exec
 DELETE FROM products
-WHERE name = $1;
+WHERE id = $1;

@@ -46,4 +46,10 @@ migrate -path db/migration -database "postgresql://postgres:admin@localhost:5432
 ```
 ## Install SQLC
 ###
-- [Installing sqlc documentation](https://docs.sqlc.dev/en/latest/overview/install.html)
+- [sqlc Documentation](https://docs.sqlc.dev/en/latest/overview/install.html)
+
+
+## Tests
+###
+- [Install Go postgres driver for Go's database/sql](https://github.com/lib/pq)
+- [Install Testify - Thou Shalt Write Tests](https://github.com/stretchr/testify)

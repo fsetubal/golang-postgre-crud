@@ -37,21 +37,21 @@ func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (P
 
 const deleteProduct = `-- name: DeleteProduct :exec
 DELETE FROM products
-WHERE name = $1
+WHERE id = $1
 `
 
-func (q *Queries) DeleteProduct(ctx context.Context, name string) error {
-	_, err := q.db.ExecContext(ctx, deleteProduct, name)
+func (q *Queries) DeleteProduct(ctx context.Context, id int32) error {
+	_, err := q.db.ExecContext(ctx, deleteProduct, id)
 	return err
 }
 
 const getProduct = `-- name: GetProduct :one
 SELECT id, name, price, create_at FROM products
-WHERE name = $1 LIMIT 1
+WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetProduct(ctx context.Context, name string) (Product, error) {
-	row := q.db.QueryRowContext(ctx, getProduct, name)
+func (q *Queries) GetProduct(ctx context.Context, id int32) (Product, error) {
+	row := q.db.QueryRowContext(ctx, getProduct, id)
 	var i Product
 	err := row.Scan(
 		&i.ID,
@@ -96,17 +96,18 @@ func (q *Queries) GetProducts(ctx context.Context) ([]Product, error) {
 
 const updateProduct = `-- name: UpdateProduct :one
 UPDATE products
-SET name = $1, price = $2
-WHERE name = $1 RETURNING id, name, price, create_at
+SET name = $2, price = $3
+WHERE id = $1 RETURNING id, name, price, create_at
 `
 
 type UpdateProductParams struct {
+	ID    int32  `json:"id"`
 	Name  string `json:"name"`
 	Price int32  `json:"price"`
 }
 
 func (q *Queries) UpdateProduct(ctx context.Context, arg UpdateProductParams) (Product, error) {
-	row := q.db.QueryRowContext(ctx, updateProduct, arg.Name, arg.Price)
+	row := q.db.QueryRowContext(ctx, updateProduct, arg.ID, arg.Name, arg.Price)
 	var i Product
 	err := row.Scan(
 		&i.ID,
