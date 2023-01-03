@@ -51,5 +51,7 @@ migrate -path db/migration -database "postgresql://postgres:admin@localhost:5432
 
 ## Tests
 ###
-- [Install Go postgres driver for Go's database/sql](https://github.com/lib/pq)
-- [Install Testify - Thou Shalt Write Tests](https://github.com/stretchr/testify)
+- [Go postgres driver for Go's database/sql](https://github.com/lib/pq)
+- [Testify - Thou Shalt Write Tests](https://github.com/stretchr/testify)
+- [Insomnia API development platform](https://docs.insomnia.rest/insomnia/install)
+- [Gin Web Framework](https://github.com/gin-gonic/gin)
